@@ -7,7 +7,7 @@
 ;; Description: Grammarly support for Flymake.
 ;; Keyword: grammar check
 ;; Version: 0.0.1
-;; Package-Requires: ((emacs "25.1") (grammarly "0.1.0") (flymake-quickdef "1.0.0"))
+;; Package-Requires: ((emacs "26.1") (grammarly "0.1.0"))
 ;; URL: https://github.com/jcs-elpa/flymake-grammarly
 
 ;; This file is NOT part of GNU Emacs.
@@ -37,7 +37,6 @@
 (require 'dom)
 
 (require 'flymake)
-(require 'flymake-quickdef)
 (require 'grammarly)
 
 (defgroup flymake-grammarly nil
@@ -102,7 +101,6 @@
   "On close Grammarly API."
   (when flymake-mode
     (setq flymake-grammarly--done-checking t)
-    (flymake-grammarly--report-once)
     (flymake-mode 1)))
 
 (add-to-list 'grammarly-on-open-function-list 'flymake-grammarly--on-open)
@@ -172,7 +170,7 @@
   (replace-regexp-in-string "\n" "" desc))
 
 (defun flymake-grammarly--check-all (source-buffer)
-  "Check grammar for buffer document."
+  "Check grammar for SOURCE-BUFFER document."
   (let ((check-list '()))
     (dolist (data flymake-grammarly--point-data)
       (let ((type (if (string-match-p "error" data) :error :warning))
@@ -187,27 +185,20 @@
 ;;; Flymake
 
 (defvar flymake-grammarly--report-fnc nil
-  "")
+  "Record report function/execution.")
 
 (defvar flymake-grammarly--source-buffer nil
-  "")
-
-(defun flymake-grammarly--fake-report (source-buffer)
-  ""
-  (list (flymake-make-diagnostic source-buffer 100 105 :error "hello")))
+  "Record source check buffer.")
 
 (defun flymake-grammarly--report-once ()
-  ""
-  (message "fnc: %s" flymake-grammarly--report-fnc)
+  "Report with flymake after done requesting."
   (when (functionp flymake-grammarly--report-fnc)
     (funcall flymake-grammarly--report-fnc
-             ;;(flymake-grammarly--fake-report flymake-grammarly--source-buffer)
-             (flymake-grammarly--check-all flymake-grammarly--source-buffer)
-             )))
+             (flymake-grammarly--check-all flymake-grammarly--source-buffer))))
 
-(defun flymake-grammarly--checker (flymake-report-fn &rest _args)
-  "Internal function."
-  (setq flymake-grammarly--report-fnc flymake-report-fn
+(defun flymake-grammarly--checker (report-fn &rest _args)
+  "Diagnostic checker function with REPORT-FN."
+  (setq flymake-grammarly--report-fnc report-fn
         flymake-grammarly--source-buffer (current-buffer))
   (flymake-grammarly--report-once))
 
