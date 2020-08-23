@@ -54,7 +54,7 @@
 (defcustom flymake-grammarly-check-time 0.8
   "How long do we call request after we done typing."
   :type 'float
-  :group 'flycheck-grammarly)
+  :group 'flymake-grammarly)
 
 (defvar flymake-grammarly--show-debug-message nil
   "Show the debug message from this package.")
@@ -210,8 +210,8 @@
   (interactive)
   (setq flymake-grammarly--last-buffer-string (buffer-string))
   (add-hook 'after-change-functions #'flymake-grammarly--after-change-functions nil t)
-  (unless flycheck-grammarly--done-checking
-    (flycheck-grammarly--reset-request)
+  (unless flymake-grammarly--done-checking
+    (flymake-grammarly--reset-request)
     (grammarly-check-text (buffer-string)))
   (add-hook 'flymake-diagnostic-functions #'flymake-grammarly--checker nil t))
 
