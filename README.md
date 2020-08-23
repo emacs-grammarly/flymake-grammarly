@@ -5,7 +5,7 @@
 > Grammarly support for Flymake.
 
 <p align="center">
-  <img src="./etc/screenshot.png" width="309" height="360"/>
+  <img src="./etc/screenshot.png" width="652" height="294"/>
 <p>
 
 ## Usage
