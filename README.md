@@ -4,6 +4,10 @@
 # flymake-grammarly
 > Grammarly support for Flymake.
 
+<p align="center">
+  <img src="./etc/screenshot.png" width="309" height="360"/>
+<p>
+
 ## Usage
 
 To enable this package, simply add loading to your config like the code below.
