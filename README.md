@@ -16,7 +16,7 @@ To enable this package, simply add loading to your config like the code below.
 (require 'flymake-grammarly)
 ```
 
-You can generally call `'flymake-grammarly-load` to any `mode-hook` for
+You can generally call `flymake-grammarly-load` to any `mode-hook` for
 grammarly to start working.
 
 ```el
@@ -26,7 +26,7 @@ grammarly to start working.
 (add-hook 'markdown-mode-hook 'flymake-grammarly-load)
 ```
 
-otherwise you can call `'flymake-grammarly-maybe-load` like the snippt below.
+otherwise you can call `flymake-grammarly-maybe-load` like the snippt below.
 
 ```el
 (add-hook 'find-file-hook 'flymake-grammarly-maybe-load)
