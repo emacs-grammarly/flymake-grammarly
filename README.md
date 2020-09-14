@@ -2,7 +2,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # flymake-grammarly
-> Grammarly support for Flymake.
+> Flymake support for Grammarly.
 
 <p align="center">
   <img src="./etc/screenshot.png" width="629" height="225"/>
