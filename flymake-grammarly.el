@@ -123,9 +123,9 @@
 (defun flymake-grammarly--reset-request ()
   "Reset some variables so the next time the user done typing can reuse."
   (flymake-grammarly--debug-message "[INFO] Reset grammarly requests!")
-  (setq flymake-grammarly--last-buffer-string (buffer-string))
-  (setq flymake-grammarly--point-data '())
-  (setq flymake-grammarly--done-checking nil))
+  (setq flymake-grammarly--last-buffer-string (buffer-string)
+        flymake-grammarly--point-data '()
+        flymake-grammarly--done-checking nil))
 
 (defun flymake-grammarly--after-change-functions (&rest _)
   "After change function to check if content change."
@@ -193,6 +193,9 @@
 (defun flymake-grammarly--report-once ()
   "Report with flymake after done requesting."
   (when (functionp flymake-grammarly--report-fnc)
+    (unless flymake-grammarly--done-checking
+      (flymake-grammarly--reset-request)
+      (grammarly-check-text (buffer-string)))
     (funcall flymake-grammarly--report-fnc
              (flymake-grammarly--check-all flymake-grammarly--source-buffer))))
 
@@ -210,9 +213,6 @@
   (interactive)
   (setq flymake-grammarly--last-buffer-string (buffer-string))
   (add-hook 'after-change-functions #'flymake-grammarly--after-change-functions nil t)
-  (unless flymake-grammarly--done-checking
-    (flymake-grammarly--reset-request)
-    (grammarly-check-text (buffer-string)))
   (add-hook 'flymake-diagnostic-functions #'flymake-grammarly--checker nil t))
 
 ;;;###autoload
