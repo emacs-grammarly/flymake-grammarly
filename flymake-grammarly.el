@@ -1,10 +1,10 @@
-;;; flymake-grammarly.el --- Grammarly support for Flymake  -*- lexical-binding: t; -*-
+;;; flymake-grammarly.el --- Flymake support for Grammarly  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020  Shen, Jen-Chieh
 ;; Created date 2020-08-23 17:21:13
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
-;; Description: Grammarly support for Flymake.
+;; Description: Flymake support for Grammarly.
 ;; Keyword: grammar check
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "26.1") (grammarly "0.1.0"))
@@ -27,7 +27,7 @@
 
 ;;; Commentary:
 ;;
-;; Grammarly support for Flymake.
+;; Flymake support for Grammarly.
 ;;
 
 ;;; Code:
@@ -40,7 +40,7 @@
 (require 'grammarly)
 
 (defgroup flymake-grammarly nil
-  "Grammarly support for Flymake."
+  "Flymake support for Grammarly."
   :prefix "flymake-grammarly-"
   :group 'flymake
   :link '(url-link :tag "Github" "https://github.com/jcs-elpa/flymake-grammarly"))
