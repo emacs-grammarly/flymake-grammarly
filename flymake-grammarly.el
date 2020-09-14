@@ -81,7 +81,7 @@
 (defun flymake-grammarly--debug-message (fmt &rest args)
   "Debug message like function `message' with same argument FMT and ARGS."
   (when flymake-grammarly--show-debug-message
-    (apply 'message fmt args)))
+    (apply #'message fmt args)))
 
 ;;; Grammarly
 
@@ -149,7 +149,7 @@
   (with-temp-buffer
     (insert html)
     (goto-char (point-min))
-    (while (not (= (point) (point-max)))
+    (while (not (eobp))
       (let ((replace-data (flymake-grammarly--encode-char (char-before))))
         (when replace-data
           (backward-delete-char (cdr replace-data))
