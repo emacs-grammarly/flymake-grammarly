@@ -6,7 +6,7 @@
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
 ;; Description: Flymake support for Grammarly.
 ;; Keyword: grammar check
-;; Version: 0.1.3
+;; Version: 0.2.0
 ;; Package-Requires: ((emacs "26.1") (grammarly "0.1.3"))
 ;; URL: https://github.com/jcs-elpa/flymake-grammarly
 
