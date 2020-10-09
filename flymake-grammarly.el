@@ -7,7 +7,7 @@
 ;; Description: Flymake support for Grammarly.
 ;; Keyword: grammar check
 ;; Version: 0.1.2
-;; Package-Requires: ((emacs "26.1") (grammarly "0.1.0"))
+;; Package-Requires: ((emacs "26.1") (grammarly "0.1.3"))
 ;; URL: https://github.com/jcs-elpa/flymake-grammarly
 
 ;; This file is NOT part of GNU Emacs.
