@@ -212,6 +212,9 @@
   "Configure flymake mode to check the current buffer's grammar."
   (interactive)
   (setq flymake-grammarly--last-buffer-string (buffer-string))
+  (unless flymake-grammarly--done-checking
+    (flymake-grammarly--reset-request)
+    (grammarly-check-text (buffer-string)))
   (add-hook 'after-change-functions #'flymake-grammarly--after-change-functions nil t)
   (add-hook 'flymake-diagnostic-functions #'flymake-grammarly--checker nil t))
 
