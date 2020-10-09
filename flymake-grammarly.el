@@ -93,8 +93,10 @@
 (defun flymake-grammarly--on-message (data)
   "Received DATA from Grammarly API."
   (when flymake-mode
-    (flymake-grammarly--debug-message "[INFO] Receiving data from grammarly, level (%s)" (length flymake-grammarly--point-data))
-    (when (string-match-p "\"point\":" data)
+    (flymake-grammarly--debug-message
+     "[INFO] Receiving data from grammarly, level (%s) : %s"
+     (length flymake-grammarly--point-data) data)
+    (when (string-match-p "\"highlightBegin\":" data)
       (push data flymake-grammarly--point-data))))
 
 (defun flymake-grammarly--on-close ()
@@ -159,25 +161,32 @@
 
 (defun flymake-grammarly--grab-info (data attr)
   "Grab value through ATTR key with DATA."
-  (let* ((json-object-type 'hash-table)
+  (let* ((attrs (split-string attr " "))
+         (json-object-type 'hash-table)
          (json-array-type 'list)
          (json-key-type 'string)
-         (json (json-read-from-string data)))
-    (gethash attr json)))
+         (target-val (json-read-from-string data)))
+    (while (< 0 (length attrs))
+      (setq target-val (gethash (nth 0 attrs) target-val))
+      (pop attrs))
+    target-val))
 
 (defun flymake-grammarly--valid-description (desc)
-  "Convert to valid description DESC."
-  (replace-regexp-in-string "\n" "" desc))
+  "Convert DESC to valid description."
+  (setq desc (replace-regexp-in-string "\n" "" desc)
+        desc (replace-regexp-in-string "[ ]+" " " desc))
+  desc)
 
 (defun flymake-grammarly--check-all (source-buffer)
   "Check grammar for SOURCE-BUFFER document."
   (let ((check-list '()))
     (dolist (data flymake-grammarly--point-data)
-      (let ((type (if (string-match-p "error" data) :error :warning))
-            (pt-beg (flymake-grammarly--grab-info data "highlightBegin"))
-            (pt-end (flymake-grammarly--grab-info data "highlightEnd"))
-            (desc (flymake-grammarly--html-to-text
-                   (flymake-grammarly--grab-info data "explanation"))))
+      (let* ((pt-beg (flymake-grammarly--grab-info data "highlightBegin"))
+             (pt-end (flymake-grammarly--grab-info data "highlightEnd"))
+             (exp (flymake-grammarly--grab-info data "explanation"))
+             (card-desc (unless exp (flymake-grammarly--grab-info data "cardLayout groupDescription")))
+             (desc (flymake-grammarly--html-to-text (or exp card-desc "")))
+             (type (if exp (if (string-match-p "error" data) :error :warning) :warning)))
         (setq desc (flymake-grammarly--valid-description desc))
         (push (flymake-make-diagnostic source-buffer (1+ pt-beg) (1+ pt-end) type desc) check-list)))
     check-list))
