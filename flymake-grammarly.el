@@ -182,6 +182,12 @@
         (push (flymake-make-diagnostic source-buffer (1+ pt-beg) (1+ pt-end) type desc) check-list)))
     check-list))
 
+(defun flymake-grammarly--grammar-check ()
+  "Grammar check once."
+  (unless flymake-grammarly--done-checking
+    (flymake-grammarly--reset-request)
+    (grammarly-check-text (buffer-string))))
+
 ;;; Flymake
 
 (defvar flymake-grammarly--report-fnc nil
@@ -193,9 +199,7 @@
 (defun flymake-grammarly--report-once ()
   "Report with flymake after done requesting."
   (when (functionp flymake-grammarly--report-fnc)
-    (unless flymake-grammarly--done-checking
-      (flymake-grammarly--reset-request)
-      (grammarly-check-text (buffer-string)))
+    (flymake-grammarly--grammar-check)
     (funcall flymake-grammarly--report-fnc
              (flymake-grammarly--check-all flymake-grammarly--source-buffer))))
 
@@ -212,9 +216,7 @@
   "Configure flymake mode to check the current buffer's grammar."
   (interactive)
   (setq flymake-grammarly--last-buffer-string (buffer-string))
-  (unless flymake-grammarly--done-checking
-    (flymake-grammarly--reset-request)
-    (grammarly-check-text (buffer-string)))
+  (flymake-grammarly--grammar-check)
   (add-hook 'after-change-functions #'flymake-grammarly--after-change-functions nil t)
   (add-hook 'flymake-diagnostic-functions #'flymake-grammarly--checker nil t))
 
