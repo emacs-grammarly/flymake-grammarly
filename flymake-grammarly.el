@@ -8,7 +8,7 @@
 ;; Keyword: grammar check
 ;; Version: 0.2.1
 ;; Package-Requires: ((emacs "26.1") (grammarly "0.3.0"))
-;; URL: https://github.com/jcs-elpa/flymake-grammarly
+;; URL: https://github.com/flymake/flymake-grammarly
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -43,7 +43,7 @@
   "Flymake support for Grammarly."
   :prefix "flymake-grammarly-"
   :group 'flymake
-  :link '(url-link :tag "Github" "https://github.com/jcs-elpa/flymake-grammarly"))
+  :link '(url-link :tag "Github" "https://github.com/flymake/flymake-grammarly"))
 
 (defcustom flymake-grammarly-active-modes
   '(text-mode latex-mode org-mode markdown-mode)
