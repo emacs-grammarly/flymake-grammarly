@@ -43,7 +43,7 @@
   "Flymake support for Grammarly."
   :prefix "flymake-grammarly-"
   :group 'flymake
-  :link '(url-link :tag "Github" "https://github.com/flymake/flymake-grammarly"))
+  :link '(url-link :tag "Github" "https://github.com/emacs-grammarly/flymake-grammarly"))
 
 (defcustom flymake-grammarly-active-modes
   '(text-mode latex-mode org-mode markdown-mode)
