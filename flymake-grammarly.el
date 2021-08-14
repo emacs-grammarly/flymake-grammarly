@@ -7,7 +7,7 @@
 ;; Description: Flymake support for Grammarly.
 ;; Keyword: grammar check
 ;; Version: 0.2.1
-;; Package-Requires: ((emacs "26.1") (grammarly "0.3.0"))
+;; Package-Requires: ((emacs "26.1") (grammarly "0.3.0") (s "1.12.0"))
 ;; URL: https://github.com/emacs-grammarly/flymake-grammarly
 
 ;; This file is NOT part of GNU Emacs.
@@ -38,6 +38,7 @@
 
 (require 'flymake)
 (require 'grammarly)
+(require 's)
 
 (defgroup flymake-grammarly nil
   "Flymake support for Grammarly."
@@ -55,6 +56,10 @@
   "How long do we call request after we done typing."
   :type 'float
   :group 'flymake-grammarly)
+
+(defconst flymake-grammarly--avoidance-rule
+  '((":" . "\n"))
+  "Replace character to another character to avoid from Grammarly API.")
 
 (defvar flymake-grammarly--show-debug-message nil
   "Show the debug message from this package.")
@@ -191,11 +196,17 @@
         (push (flymake-make-diagnostic source-buffer (1+ pt-beg) (1+ pt-end) type desc) check-list)))
     check-list))
 
+(defun flymake-grammarly--apply-avoidance-rule (str)
+  "Apply avoidance rule to STR."
+  (dolist (rule flymake-grammarly--avoidance-rule)
+    (setq str (s-replace (car rule) (cdr rule) str)))
+  str)
+
 (defun flymake-grammarly--grammar-check ()
   "Grammar check once."
   (unless flymake-grammarly--done-checking
     (flymake-grammarly--reset-request)
-    (grammarly-check-text (buffer-string))))
+    (grammarly-check-text (flymake-grammarly--apply-avoidance-rule (buffer-string)))))
 
 ;;; Flymake
 
