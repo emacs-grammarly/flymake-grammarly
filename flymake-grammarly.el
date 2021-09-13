@@ -241,6 +241,14 @@
   (add-hook 'flymake-diagnostic-functions #'flymake-grammarly--checker nil t))
 
 ;;;###autoload
+(defun flymake-grammarly-unload ()
+  "Unload grammarly checker for flymake."
+  (interactive)
+  (setq flymake-grammarly--last-buffer-string nil)
+  (remove-hook 'after-change-functions #'flymake-grammarly--after-change-functions t)
+  (remove-hook 'flymake-diagnostic-functions #'flymake-grammarly--checker t))
+
+;;;###autoload
 (defun flymake-grammarly-maybe-load ()
   "Call `flymake-grammarly-load' if this file appears to be check for grammar."
   (interactive)
