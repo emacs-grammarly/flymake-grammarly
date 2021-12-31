@@ -67,7 +67,7 @@
 (defvar-local flymake-grammarly--done-checking nil
   "Check if Grammarly API done checking.")
 
-(defvar-local flymake-grammarly--point-data '()
+(defvar-local flymake-grammarly--point-data nil
   "List of error/warning JSON data.")
 
 (defvar-local flymake-grammarly--last-buffer-string nil
@@ -131,7 +131,7 @@
   "Reset some variables so the next time the user done typing can reuse."
   (flymake-grammarly--debug-message "[INFO] Reset grammarly requests!")
   (setq flymake-grammarly--last-buffer-string (buffer-string)
-        flymake-grammarly--point-data '()
+        flymake-grammarly--point-data nil
         flymake-grammarly--done-checking nil))
 
 (defun flymake-grammarly--after-change-functions (&rest _)
@@ -184,7 +184,7 @@
 
 (defun flymake-grammarly--check-all (source-buffer)
   "Check grammar for SOURCE-BUFFER document."
-  (let ((check-list '()))
+  (let (check-list)
     (dolist (data flymake-grammarly--point-data)
       (let* ((pt-beg (flymake-grammarly--grab-info data "highlightBegin"))
              (pt-end (flymake-grammarly--grab-info data "highlightEnd"))
