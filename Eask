@@ -2,6 +2,9 @@
          "0.2.1"
          "Flymake support for Grammarly")
 
+(website-url "https://github.com/emacs-grammarly/flymake-grammarly")
+(keywords "grammar" "check")
+
 (package-file "flymake-grammarly.el")
 
 (source "gnu")

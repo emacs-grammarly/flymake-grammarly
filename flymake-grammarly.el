@@ -4,11 +4,10 @@
 ;; Created date 2020-08-23 17:21:13
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
-;; Description: Flymake support for Grammarly.
-;; Keyword: grammar check
+;; URL: https://github.com/emacs-grammarly/flymake-grammarly
 ;; Version: 0.2.1
 ;; Package-Requires: ((emacs "26.1") (grammarly "0.3.0") (s "1.12.0"))
-;; URL: https://github.com/emacs-grammarly/flymake-grammarly
+;; Keywords: grammar check
 
 ;; This file is NOT part of GNU Emacs.
 
