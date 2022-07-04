@@ -3,7 +3,7 @@
          "Flymake support for Grammarly")
 
 (website-url "https://github.com/emacs-grammarly/flymake-grammarly")
-(keywords "grammar" "check")
+(keywords "convenience" "grammar" "check")
 
 (package-file "flymake-grammarly.el")
 
