@@ -7,7 +7,7 @@
 ;; URL: https://github.com/emacs-grammarly/flymake-grammarly
 ;; Version: 0.2.1
 ;; Package-Requires: ((emacs "26.1") (grammarly "0.3.0") (s "1.12.0"))
-;; Keywords: grammar check
+;; Keywords: convenience grammar check
 
 ;; This file is NOT part of GNU Emacs.
 
