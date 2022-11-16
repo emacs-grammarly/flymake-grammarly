@@ -140,8 +140,8 @@
            (flymake-grammarly--minified-string (buffer-string)))
     (flymake-grammarly--kill-timer)
     (setq flymake-grammarly--request-timer
-          (run-with-timer flymake-grammarly-check-time nil
-                          'flymake-grammarly--reset-request))))
+          (run-with-idle-timer flymake-grammarly-check-time nil
+                               'flymake-grammarly--reset-request))))
 
 (defun flymake-grammarly--encode-char (char-code)
   "Turn CHAR-CODE to character string."
