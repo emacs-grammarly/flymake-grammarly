@@ -147,8 +147,7 @@
   "Turn CHAR-CODE to character string."
   (cl-case char-code
     (4194208 (cons " " 2))
-    (4194201 (cons "'" 3))
-    (t nil)))
+    (4194201 (cons "'" 3))))
 
 (defun flymake-grammarly--html-to-text (html)
   "Turn HTML to text."
@@ -185,14 +184,15 @@
   "Check grammar for SOURCE-BUFFER document."
   (let (check-list)
     (dolist (data flymake-grammarly--point-data)
-      (let* ((pt-beg (flymake-grammarly--grab-info data "highlightBegin"))
-             (pt-end (flymake-grammarly--grab-info data "highlightEnd"))
+      (let* ((offset (point-min))  ; narrowed buffer
+             (pt-beg (+ offset (flymake-grammarly--grab-info data "highlightBegin")))
+             (pt-end (+ offset (flymake-grammarly--grab-info data "highlightEnd")))
              (exp (flymake-grammarly--grab-info data "explanation"))
              (card-desc (unless exp (flymake-grammarly--grab-info data "cardLayout groupDescription")))
              (desc (flymake-grammarly--html-to-text (or exp card-desc "")))
              (type (if exp (if (string-match-p "error" data) :error :warning) :warning)))
         (setq desc (flymake-grammarly--valid-description desc))
-        (push (flymake-make-diagnostic source-buffer (1+ pt-beg) (1+ pt-end) type desc) check-list)))
+        (push (flymake-make-diagnostic source-buffer pt-beg pt-end type desc) check-list)))
     check-list))
 
 (defun flymake-grammarly--apply-avoidance-rule (str)
