@@ -1,6 +1,6 @@
 ;;; flymake-grammarly.el --- Flymake support for Grammarly  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2020-2023  Shen, Jen-Chieh
+;; Copyright (C) 2020-2024  Shen, Jen-Chieh
 ;; Created date 2020-08-23 17:21:13
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
