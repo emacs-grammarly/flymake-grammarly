@@ -1,3 +1,5 @@
+;; -*- mode: eask; lexical-binding: t -*-
+
 (package "flymake-grammarly"
          "0.2.1"
          "Flymake support for Grammarly")
