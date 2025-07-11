@@ -8,7 +8,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## 0.2.2 (Unreleased)
 > Released N/A
 
-* Handle narrowed buffers (#7 and #9)
+* Handle narrowed buffers ([`#7`](../../pull/7) and [`#9`](../../pull/9))
 
 ## 0.2.1
 > Released Oct 28, 2020
